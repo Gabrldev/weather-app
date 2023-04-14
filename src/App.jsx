@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import Cards from './components/Cards'
-import { BiSearch } from 'react-icons/bi'
 import toast, { Toaster } from 'react-hot-toast'
+import Form from './components/Form'
 
 function App () {
   const API_KEY = '4ae7f5a0f05fdcc2bb3b0e3242ed4bf0'
@@ -20,7 +20,9 @@ function App () {
       const notify = () => toast.error('debes ingresar una ciudad')
       notify()
     }
-    if (weather.find((item) => item.name.toLowerCase() === city.toLowerCase())) {
+    if (
+      weather.find((item) => item.name.toLowerCase() === city.toLowerCase())
+    ) {
       const notify = () => toast.error('La ciudad ya se encuentra en la lista')
       notify()
     } else {
@@ -50,19 +52,7 @@ function App () {
   return (
     <div className='h-screen w-screen text-white py-[92px] px-24'>
       <Toaster />
-      <form
-        className='w-5/6 bg-[#1F1F21] m-auto h-14 rounded-full  flex items-center'
-        onSubmit={handleSubmit}
-      >
-        <BiSearch className='text-2xl ml-6 mr-3 text-[#ACABAE] ' />
-        <input
-          value={city}
-          type='text'
-          onChange={handleCity}
-          className='bg-transparent border-none outline-none text-[#ACABAE] text-1xl w-full'
-          placeholder='Ingresa una ciudad...'
-        />
-      </form>
+      <Form handleSubmit={handleSubmit} city={city} handleCity={handleCity} />
       <Cards weather={weather} close={closeCard} />
     </div>
   )
